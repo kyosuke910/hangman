@@ -38,7 +38,7 @@ Node.jsのCLIゲーム
 その他のパッケージのバージョンは package.json を参照してください
 
 ## ディレクトリ構成
-❯ tree -a -I "node_modules|.next|.git|dist|package-lock.json|static"
+```
 .
 ├── .gitignore
 ├── README.md
@@ -59,6 +59,7 @@ Node.jsのCLIゲーム
 │   └── utils
 │       └── CLI.ts
 └── tsconfig.json
+```
 
 ## 開発環境構築
 ```
