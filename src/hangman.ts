@@ -1,4 +1,8 @@
 import rawData from "./data/questions.test.json"
+import readlinePromises from "readline/promises"
+import chalk from "chalk"
+import figlet from "figlet"
+
 interface Question {
   word: string
   hint: string
@@ -34,3 +38,43 @@ class Quiz {
 }
 
 const quiz = new Quiz(question)
+
+interface UserInterface {
+  input(): Promise<string>
+  clear(): void
+  destroy(): void
+  output(message: string, color?: Color): void
+  outputAnswer(message: string,): void
+}
+
+// readlinePromisesインターフェイスのインスタンスを生成
+const rl = readlinePromises.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+const CLI: UserInterface = {
+  // プロパティとメソッドを追加していく
+  async input() {
+    const input = await rl.question("文字または単語を推測してください： ")
+    return input.replaceAll(" ", "").toLowerCase()
+  },
+
+  clear() {
+    console.clear() // コンソールのクリア
+  },
+
+  destroy() {
+    rl.close() // プロンプトの終了
+  },
+
+  output(message: string, color: Color = "white") {
+    console.log(chalk[color](message), "\n")
+  },
+
+  outputAnswer(message: string) {
+    console.log(figlet.textSync(message, { font: "Big" }), "\n")
+  }
+}
+
+type Color = "red" | "green" | "yellow" | "white"
